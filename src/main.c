@@ -296,6 +296,8 @@ void main_app_term()
 {
   printf("main_app_term()\n");
 
+  main_app_close();
+
   database_term();
 
   if (app_db_path != NULL) {
