@@ -20,10 +20,3 @@ CREATE TABLE issue (
   description varchar(255),
   reproduction_steps varchar(255)
 );
-
-INSERT INTO project VALUES (1, 'Integrado', 'A');
-INSERT INTO project VALUES (2, 'Inventário', 'A');
-INSERT INTO project VALUES (3, 'Documentos', 'A');
-INSERT INTO project VALUES (4, 'E-commerce', 'A');
-INSERT INTO project VALUES (5, 'Acadêmico', 'A');
-INSERT INTO project VALUES (6, 'Olivum - Site', 'A');

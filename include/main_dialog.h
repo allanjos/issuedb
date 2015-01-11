@@ -1,6 +1,6 @@
 /* -*- Mode: C; indent-tabs-mode: t; c-basic-offset: 4; tab-width: 4 -*-  */
 /*
- * main.h
+ * main_dialog.h
  * Copyright (C) 2013 Allann Jones <allanjos[at]gmail.com>
  * 
  * Redistribution and use in source and binary forms, with or without

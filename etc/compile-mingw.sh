@@ -54,7 +54,7 @@ gcc -c ${CFLAGS} src/project_edit_dialog.c -o ${BUILD_DIR}/project_edit_dialog.o
 
 echo "Compiling main dialog"
 
-gcc -c ${CFLAGS} src/main.c -o ${BUILD_DIR}/main.o
+gcc -c ${CFLAGS} src/main_dialog.c -o ${BUILD_DIR}/main_dialog.o
 
 echo "Creating RC file"
 
@@ -64,12 +64,12 @@ echo "Generating executable ${EXECUTABLE_FILE_NAME}"
 
 gcc ${CFLAGS} ${BUILD_DIR}/sqlite3.o \
             ${BUILD_DIR}/database.o \
-	    ${BUILD_DIR}/database_setup.o \
+            ${BUILD_DIR}/database_setup.o \
             ${BUILD_DIR}/issue_new_dialog.o \
             ${BUILD_DIR}/issue_edit_dialog.o \
             ${BUILD_DIR}/project_main_dialog.o \
             ${BUILD_DIR}/project_new_dialog.o \
             ${BUILD_DIR}/project_edit_dialog.o \
-            ${BUILD_DIR}/main.o \
+            ${BUILD_DIR}/main_dialog.o \
             ${BUILD_DIR}/app_rc.o ${LDFLAGS} \
             -o ${BUILD_DIR}/${EXECUTABLE_FILE_NAME}

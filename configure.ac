@@ -10,7 +10,7 @@ AC_INIT([Fixer],
         [https://www.olivum.com.br])
 
 
-AC_CONFIG_SRCDIR([src/main.c])
+AC_CONFIG_SRCDIR([src/main_dialog.c])
 
 # Checks for programs.
 AC_PROG_CC

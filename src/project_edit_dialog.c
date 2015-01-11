@@ -35,7 +35,7 @@
 #include "database.h"
 #include "project_edit_dialog.h"
 #include "project_main_dialog.h"
-#include "main.h"
+#include "main_dialog.h"
 #include "pixmaps/save_16x16.xpm"
 #include "pixmaps/close_16x16.xpm"
 #include "pixmaps/delete_16x16.xpm"

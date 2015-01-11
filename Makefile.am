@@ -12,4 +12,4 @@ issuedb_SOURCES = src/sqlite3.c \
 									 src/project_new_dialog.c \
 									 src/project_edit_dialog.c \
 									 src/project_main_dialog.c \
-									 src/main.c
+									 src/main_dialog.c

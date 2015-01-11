@@ -33,6 +33,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include "database.h"
+#include "main_dialog.h"
 #include "project_new_dialog.h"
 #include "project_main_dialog.h"
 #include "pixmaps/save_16x16.xpm"
@@ -295,9 +296,9 @@ int project_new_dialog_save_data()
 
   sqlite3_close(db);
 
-  // Reload the list
+  // Reload projects list on main dialog
 
-  project_main_dialog_load_list();
+  main_dialog_load_projects();
 
   // Close this dialog
 

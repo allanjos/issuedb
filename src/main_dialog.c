@@ -1,6 +1,6 @@
 /* -*- Mode: C; indent-tabs-mode: t; c-basic-offset: 4; tab-width: 4 -*-  */
 /*
- * main.c
+ * main_dialog.c
  * Copyright (C) 2013 Allann Jones <allanjos[at]gmail.com>
  * 
  * Redistribution and use in source and binary forms, with or without
@@ -37,7 +37,7 @@
 #include "issue_new_dialog.h"
 #include "issue_edit_dialog.h"
 #include "project_main_dialog.h"
-#include "main.h"
+#include "main_dialog.h"
 #include "app.h"
 #include "pixmaps/bug_add_16x16.xpm"
 #include "pixmaps/project_16x16.xpm"
@@ -776,6 +776,8 @@ void main_dialog_on_issue_new_request(GtkWidget *widget, gpointer data)
   if (rc != 0) {
     // @todo
   }
+
+  main_dialog_load_issue_list();
 }
 
 
@@ -818,7 +820,7 @@ void gtk_main_about_dialog_callback(GtkWidget *widget, gpointer data)
 
   gtk_window_set_position(GTK_WINDOW(dialog), GTK_WIN_POS_CENTER_ON_PARENT);
 
-  gtk_about_dialog_set_program_name(GTK_ABOUT_DIALOG(dialog), "issuedb");
+  gtk_about_dialog_set_program_name(GTK_ABOUT_DIALOG(dialog), APP_NAME);
 
   snprintf(app_version, 10, "%d.%d.%d", APP_MAJOR_VERSION, APP_MINOR_VERSION, APP_REVISION_VERSION);
 
@@ -826,10 +828,9 @@ void gtk_main_about_dialog_callback(GtkWidget *widget, gpointer data)
 
   gtk_about_dialog_set_copyright(GTK_ABOUT_DIALOG(dialog), "(c) Allann Jones");
 
-  gtk_about_dialog_set_comments(GTK_ABOUT_DIALOG(dialog), 
-                                "A simple issue tracker with a standalone database.");
+  gtk_about_dialog_set_comments(GTK_ABOUT_DIALOG(dialog), APP_BRIEF);
 
-  gtk_about_dialog_set_website(GTK_ABOUT_DIALOG(dialog),  "http://www.olivum.com.br");
+  gtk_about_dialog_set_website(GTK_ABOUT_DIALOG(dialog),  APP_URL);
 
   //gtk_about_dialog_set_logo(GTK_ABOUT_DIALOG(dialog), pixbuf);
 
@@ -843,12 +844,16 @@ void gtk_main_about_dialog_callback(GtkWidget *widget, gpointer data)
 
 int main_dialog_load_projects()
 {
+  printf("main_dialog_load_projects()");
+
   // Add the first element on projects combo
 
   GtkListStore *store;
   GtkTreeIter iter;
 
   store = GTK_LIST_STORE(gtk_combo_box_get_model(GTK_COMBO_BOX(main_dialog_toolbar_combo_projects)));
+
+  gtk_list_store_clear(store);
 
   gtk_list_store_append(store, &iter);
 

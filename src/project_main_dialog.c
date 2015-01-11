@@ -33,6 +33,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include "database.h"
+#include "main_dialog.h"
 #include "project_main_dialog.h"
 #include "project_edit_dialog.h"
 #include "project_new_dialog.h"
@@ -151,6 +152,8 @@ int project_main_dialog_open(GtkWidget *parent) {
 void project_main_dialog_close()
 {
   gtk_widget_destroy(GTK_WIDGET(project_main_window));
+
+  main_dialog_load_projects();
 }
 
 

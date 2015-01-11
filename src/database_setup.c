@@ -1,7 +1,12 @@
 #include <stdio.h>
 #include "database_setup.h"
 
+
+/**
+ * List of commands to setup database.
+ */
 const char *database_table_setup_cmd_list[2] = {
+  // Create table command for table "issue"
   "CREATE TABLE issue ("
     "issue_id integer PRIMARY KEY, "
     "summary varchar(255), "
@@ -19,6 +24,7 @@ const char *database_table_setup_cmd_list[2] = {
     "reproduction_steps varchar(255), "
     "FOREIGN KEY(project_id) REFERENCES project(project_id)"
     ");",
+  // Create table command for table "project"
   "CREATE TABLE project ("
     "project_id integer PRIMARY KEY, "
     "name varchar(255), "
@@ -26,9 +32,13 @@ const char *database_table_setup_cmd_list[2] = {
   ");"
 };
 
+/** Quantity of commands to process from commands list. */
 #define DATABASE_CMD_LIST_SIZE 2
 
 
+/**
+ * Setup the database structure.
+ */
 int database_setup()
 {
   // Query database and fill the model
