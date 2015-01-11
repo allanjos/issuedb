@@ -33,10 +33,12 @@
 #include <gtk/gtk.h>
 #include "sqlite3.h"
 #include "database.h"
+#include "database_setup.h"
 #include "issue_new_dialog.h"
 #include "issue_edit_dialog.h"
 #include "project_main_dialog.h"
 #include "main.h"
+#include "app.h"
 #include "pixmaps/bug_add_16x16.xpm"
 #include "pixmaps/project_16x16.xpm"
 #include "pixmaps/refresh_16x16.xpm"
@@ -71,6 +73,10 @@ int main(int argc, char *argv[])
   app_db_path = g_build_path(G_DIR_SEPARATOR_S, (const gchar *) app_exec_path, (const gchar *) "issues.db", NULL);
 
   database_set_data_path(app_db_path);
+
+  // Setup database
+
+  database_setup();
 
   // UI
 
@@ -804,18 +810,22 @@ void gtk_main_about_dialog_callback(GtkWidget *widget, gpointer data)
 {
   //GdkPixbuf *pixbuf = gdk_pixbuf_new_from_file("battery.png", NULL);
 
+  char app_version[10] = {0};
+
   GtkWidget *dialog = gtk_about_dialog_new();
 
   gtk_window_set_position(GTK_WINDOW(dialog), GTK_WIN_POS_CENTER_ON_PARENT);
 
-  gtk_about_dialog_set_program_name(GTK_ABOUT_DIALOG(dialog), "Bugtracker");
+  gtk_about_dialog_set_program_name(GTK_ABOUT_DIALOG(dialog), "issuedb");
 
-  gtk_about_dialog_set_version(GTK_ABOUT_DIALOG(dialog), "0.1.0"); 
+  snprintf(app_version, 10, "%d.%d.%d", APP_MAJOR_VERSION, APP_MINOR_VERSION, APP_REVISION_VERSION);
+
+  gtk_about_dialog_set_version(GTK_ABOUT_DIALOG(dialog), app_version); 
 
   gtk_about_dialog_set_copyright(GTK_ABOUT_DIALOG(dialog), "(c) Allann Jones");
 
   gtk_about_dialog_set_comments(GTK_ABOUT_DIALOG(dialog), 
-                                "Bugtracker is a simple issue tracker with a standalone database.");
+                                "A simple issue tracker with a standalone database.");
 
   gtk_about_dialog_set_website(GTK_ABOUT_DIALOG(dialog),  "http://www.olivum.com.br");
 

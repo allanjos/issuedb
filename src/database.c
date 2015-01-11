@@ -60,7 +60,10 @@ sqlite3 *database_open()
 
   g_print("Database path: %s\n", database_data_path);
 
-  rc = sqlite3_open(database_data_path, &db);
+  rc = sqlite3_open_v2(database_data_path,
+                       &db,
+                       SQLITE_OPEN_READWRITE | SQLITE_OPEN_CREATE,
+                       NULL);
 
   if (rc) {
     g_print("Can't open database: %s\n", sqlite3_errmsg(db));

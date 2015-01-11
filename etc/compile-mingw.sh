@@ -24,6 +24,10 @@ echo "Compiling database library"
 
 gcc -c ${CFLAGS} src/database.c -o ${BUILD_DIR}/database.o
 
+echo "Compiling database setup library"
+
+gcc -c ${CFLAGS} src/database_setup.c -o ${BUILD_DIR}/database_setup.o
+
 echo "Compiling issue new dialog"
 
 gcc -c ${CFLAGS} src/issue_new_dialog.c -o ${BUILD_DIR}/issue_new_dialog.o
