@@ -16,6 +16,10 @@ LDFLAGS="-L${GTK_PATH}/lib -lgtk-win32-2.0 -lgdk-win32-2.0 -latk-1.0 -lgio-2.0 -
 echo "CFLAGS = ${CFLAGS}"
 echo "LDFLAGS = ${LDFLAGS}"
 
+echo "Creating build directory '$BUILD_DIR'"
+
+mkdir -p $BUILD_DIR
+
 echo "Compiling sqlite library"
 
 gcc -c ${CFLAGS} src/sqlite3.c -o ${BUILD_DIR}/sqlite3.o
@@ -60,6 +64,7 @@ echo "Generating executable ${EXECUTABLE_FILE_NAME}"
 
 gcc ${CFLAGS} ${BUILD_DIR}/sqlite3.o \
             ${BUILD_DIR}/database.o \
+	    ${BUILD_DIR}/database_setup.o \
             ${BUILD_DIR}/issue_new_dialog.o \
             ${BUILD_DIR}/issue_edit_dialog.o \
             ${BUILD_DIR}/project_main_dialog.o \
