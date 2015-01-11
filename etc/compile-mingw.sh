@@ -5,7 +5,7 @@ GTK_PATH="third/gtk+"
 BUILD_DIR="build/win32"
 
 # Output file name
-EXECUTABLE_FILE_NAME="bugtracker.exe"
+EXECUTABLE_FILE_NAME="issuedb.exe"
 
 # Compiler flags
 CFLAGS="-Wall -mwindows -Iinclude -I${GTK_PATH}/include/atk-1.0 -I${GTK_PATH}/include/cairo -I${GTK_PATH}/include/gdk-pixbuf-2.0 -I${GTK_PATH}/include/pango-1.0 -I${GTK_PATH}/include/glib-2.0 -I${GTK_PATH}/lib/glib-2.0/include -mms-bitfields -I${GTK_PATH}/include/pixman-1 -I${GTK_PATH}/include -I${GTK_PATH}/include/freetype2 -I${GTK_PATH}/include/libpng14 -I${GTK_PATH}/include/gtk-2.0 -I${GTK_PATH}/lib/gtk-2.0/include"

@@ -1,7 +1,7 @@
 all: $(EXECUTABLE_FILE_NAME)
 
 $(EXECUTABLE_FILE_NAME): sqlite3.o database.o project_new_dialog.o project_edit_dialog.o project_main_dialog.o issue_edit_dialog.o issue_new_dialog.o main_dialog.o app_rc.o
-	$(CC) $(CFLAGS) main_dialog.o issue_new_dialog.o issue_edit_dialog.o project_main_dialog.o project_edit_dialog.o project_new_dialog.o database.o sqlite3.o app_rc.o $(LDFLAGS) -o bugtracker.exe
+	$(CC) $(CFLAGS) main_dialog.o issue_new_dialog.o issue_edit_dialog.o project_main_dialog.o project_edit_dialog.o project_new_dialog.o database.o sqlite3.o app_rc.o $(LDFLAGS) -o issuedb.exe
 
 app_rc.o:
 	windres.exe -I. -iapp.rc -o app_rc.o
