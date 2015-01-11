@@ -207,6 +207,18 @@ int issue_new_dialog_open(GtkWidget *parent) {
   gtk_list_store_append(list_store_os, &iter_os);
   gtk_list_store_set(list_store_os, &iter_os, 0, "Microsoft Windows", 1, 3, -1);
 
+  gtk_list_store_append(list_store_os, &iter_os);
+  gtk_list_store_set(list_store_os, &iter_os, 0, "FreeBSD", 1, 4, -1);
+
+  gtk_list_store_append(list_store_os, &iter_os);
+  gtk_list_store_set(list_store_os, &iter_os, 0, "OpenBSD", 1, 4, -1);
+
+  gtk_list_store_append(list_store_os, &iter_os);
+  gtk_list_store_set(list_store_os, &iter_os, 0, "Other operating system", 1, 999, -1);
+
+  gtk_list_store_append(list_store_os, &iter_os);
+  gtk_list_store_set(list_store_os, &iter_os, 0, "All operating systems", 1, 1000, -1);
+
   gtk_combo_box_set_model(GTK_COMBO_BOX(combo_os), GTK_TREE_MODEL(list_store_os));
 
   GtkCellRenderer *os_name_renderer;
