@@ -296,6 +296,10 @@ int project_new_dialog_save_data()
 
   sqlite3_close(db);
 
+  // Reload projects list on project main dialog
+
+  project_main_dialog_load_list();
+
   // Reload projects list on main dialog
 
   main_dialog_load_projects();
