@@ -92,7 +92,7 @@ int main(int argc, char *argv[])
 
   gtk_window_set_default_size(GTK_WINDOW(main_dialog_window), 950, 600);
 
-  gtk_window_set_title(GTK_WINDOW(main_dialog_window), "Bugtracker");
+  gtk_window_set_title(GTK_WINDOW(main_dialog_window), APP_NAME);
 
   g_signal_connect(main_dialog_window, "delete-event", G_CALLBACK (main_dialog_delete_event), NULL);
 
