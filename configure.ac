@@ -9,6 +9,7 @@ AC_INIT([Fixer],
         [issuedb],
         [https://www.olivum.com.br])
 
+AM_INIT_AUTOMAKE([subdir-objects])
 
 AC_CONFIG_SRCDIR([src/main_dialog.c])
 

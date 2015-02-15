@@ -94,11 +94,13 @@ CONFIG_CLEAN_FILES =
 CONFIG_CLEAN_VPATH_FILES =
 am__installdirs = "$(DESTDIR)$(bindir)"
 PROGRAMS = $(bin_PROGRAMS)
-am_issuedb_OBJECTS = sqlite3.$(OBJEXT) database.$(OBJEXT) \
-	database_setup.$(OBJEXT) issue_new_dialog.$(OBJEXT) \
-	issue_edit_dialog.$(OBJEXT) project_new_dialog.$(OBJEXT) \
-	project_edit_dialog.$(OBJEXT) project_main_dialog.$(OBJEXT) \
-	main_dialog.$(OBJEXT)
+am__dirstamp = $(am__leading_dot)dirstamp
+am_issuedb_OBJECTS = src/sqlite3.$(OBJEXT) src/database.$(OBJEXT) \
+	src/database_setup.$(OBJEXT) src/issue_new_dialog.$(OBJEXT) \
+	src/issue_edit_dialog.$(OBJEXT) \
+	src/project_new_dialog.$(OBJEXT) \
+	src/project_edit_dialog.$(OBJEXT) \
+	src/project_main_dialog.$(OBJEXT) src/main_dialog.$(OBJEXT)
 issuedb_OBJECTS = $(am_issuedb_OBJECTS)
 issuedb_LDADD = $(LDADD)
 AM_V_P = $(am__v_P_@AM_V@)
@@ -117,10 +119,6 @@ DEFAULT_INCLUDES = -I.@am__isrc@ -I$(top_builddir)/include
 depcomp = $(SHELL) $(top_srcdir)/depcomp
 am__depfiles_maybe = depfiles
 am__mv = mv -f
-AM_V_lt = $(am__v_lt_@AM_V@)
-am__v_lt_ = $(am__v_lt_@AM_DEFAULT_V@)
-am__v_lt_0 = --silent
-am__v_lt_1 = 
 COMPILE = $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) \
 	$(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS)
 AM_V_CC = $(am__v_CC_@AM_V@)
@@ -272,14 +270,14 @@ top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
 AUTOMAKE_OPTIONS = foreign
 issuedb_SOURCES = src/sqlite3.c \
-									 src/database.c \
-                   src/database_setup.c \
-									 src/issue_new_dialog.c \
-									 src/issue_edit_dialog.c \
-									 src/project_new_dialog.c \
-									 src/project_edit_dialog.c \
-									 src/project_main_dialog.c \
-									 src/main_dialog.c
+                  src/database.c \
+                  src/database_setup.c \
+                  src/issue_new_dialog.c \
+                  src/issue_edit_dialog.c \
+                  src/project_new_dialog.c \
+                  src/project_edit_dialog.c \
+                  src/project_main_dialog.c \
+                  src/main_dialog.c
 
 all: all-am
 
@@ -376,6 +374,30 @@ uninstall-binPROGRAMS:
 
 clean-binPROGRAMS:
 	-test -z "$(bin_PROGRAMS)" || rm -f $(bin_PROGRAMS)
+src/$(am__dirstamp):
+	@$(MKDIR_P) src
+	@: > src/$(am__dirstamp)
+src/$(DEPDIR)/$(am__dirstamp):
+	@$(MKDIR_P) src/$(DEPDIR)
+	@: > src/$(DEPDIR)/$(am__dirstamp)
+src/sqlite3.$(OBJEXT): src/$(am__dirstamp) \
+	src/$(DEPDIR)/$(am__dirstamp)
+src/database.$(OBJEXT): src/$(am__dirstamp) \
+	src/$(DEPDIR)/$(am__dirstamp)
+src/database_setup.$(OBJEXT): src/$(am__dirstamp) \
+	src/$(DEPDIR)/$(am__dirstamp)
+src/issue_new_dialog.$(OBJEXT): src/$(am__dirstamp) \
+	src/$(DEPDIR)/$(am__dirstamp)
+src/issue_edit_dialog.$(OBJEXT): src/$(am__dirstamp) \
+	src/$(DEPDIR)/$(am__dirstamp)
+src/project_new_dialog.$(OBJEXT): src/$(am__dirstamp) \
+	src/$(DEPDIR)/$(am__dirstamp)
+src/project_edit_dialog.$(OBJEXT): src/$(am__dirstamp) \
+	src/$(DEPDIR)/$(am__dirstamp)
+src/project_main_dialog.$(OBJEXT): src/$(am__dirstamp) \
+	src/$(DEPDIR)/$(am__dirstamp)
+src/main_dialog.$(OBJEXT): src/$(am__dirstamp) \
+	src/$(DEPDIR)/$(am__dirstamp)
 
 issuedb$(EXEEXT): $(issuedb_OBJECTS) $(issuedb_DEPENDENCIES) $(EXTRA_issuedb_DEPENDENCIES) 
 	@rm -f issuedb$(EXEEXT)
@@ -383,159 +405,36 @@ issuedb$(EXEEXT): $(issuedb_OBJECTS) $(issuedb_DEPENDENCIES) $(EXTRA_issuedb_DEP
 
 mostlyclean-compile:
 	-rm -f *.$(OBJEXT)
+	-rm -f src/*.$(OBJEXT)
 
 distclean-compile:
 	-rm -f *.tab.c
 
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/database.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/database_setup.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/issue_edit_dialog.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/issue_new_dialog.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/main_dialog.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/project_edit_dialog.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/project_main_dialog.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/project_new_dialog.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/sqlite3.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/database.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/database_setup.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/issue_edit_dialog.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/issue_new_dialog.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/main_dialog.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/project_edit_dialog.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/project_main_dialog.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/project_new_dialog.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/sqlite3.Po@am__quote@
 
 .c.o:
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(COMPILE) -MT $@ -MD -MP -MF $(DEPDIR)/$*.Tpo -c -o $@ $<
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/$*.Tpo $(DEPDIR)/$*.Po
+@am__fastdepCC_TRUE@	$(AM_V_CC)depbase=`echo $@ | sed 's|[^/]*$$|$(DEPDIR)/&|;s|\.o$$||'`;\
+@am__fastdepCC_TRUE@	$(COMPILE) -MT $@ -MD -MP -MF $$depbase.Tpo -c -o $@ $< &&\
+@am__fastdepCC_TRUE@	$(am__mv) $$depbase.Tpo $$depbase.Po
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='$<' object='$@' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(COMPILE) -c -o $@ $<
 
 .c.obj:
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(COMPILE) -MT $@ -MD -MP -MF $(DEPDIR)/$*.Tpo -c -o $@ `$(CYGPATH_W) '$<'`
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/$*.Tpo $(DEPDIR)/$*.Po
+@am__fastdepCC_TRUE@	$(AM_V_CC)depbase=`echo $@ | sed 's|[^/]*$$|$(DEPDIR)/&|;s|\.obj$$||'`;\
+@am__fastdepCC_TRUE@	$(COMPILE) -MT $@ -MD -MP -MF $$depbase.Tpo -c -o $@ `$(CYGPATH_W) '$<'` &&\
+@am__fastdepCC_TRUE@	$(am__mv) $$depbase.Tpo $$depbase.Po
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='$<' object='$@' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(COMPILE) -c -o $@ `$(CYGPATH_W) '$<'`
-
-sqlite3.o: src/sqlite3.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT sqlite3.o -MD -MP -MF $(DEPDIR)/sqlite3.Tpo -c -o sqlite3.o `test -f 'src/sqlite3.c' || echo '$(srcdir)/'`src/sqlite3.c
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/sqlite3.Tpo $(DEPDIR)/sqlite3.Po
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='src/sqlite3.c' object='sqlite3.o' libtool=no @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o sqlite3.o `test -f 'src/sqlite3.c' || echo '$(srcdir)/'`src/sqlite3.c
-
-sqlite3.obj: src/sqlite3.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT sqlite3.obj -MD -MP -MF $(DEPDIR)/sqlite3.Tpo -c -o sqlite3.obj `if test -f 'src/sqlite3.c'; then $(CYGPATH_W) 'src/sqlite3.c'; else $(CYGPATH_W) '$(srcdir)/src/sqlite3.c'; fi`
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/sqlite3.Tpo $(DEPDIR)/sqlite3.Po
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='src/sqlite3.c' object='sqlite3.obj' libtool=no @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o sqlite3.obj `if test -f 'src/sqlite3.c'; then $(CYGPATH_W) 'src/sqlite3.c'; else $(CYGPATH_W) '$(srcdir)/src/sqlite3.c'; fi`
-
-database.o: src/database.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT database.o -MD -MP -MF $(DEPDIR)/database.Tpo -c -o database.o `test -f 'src/database.c' || echo '$(srcdir)/'`src/database.c
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/database.Tpo $(DEPDIR)/database.Po
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='src/database.c' object='database.o' libtool=no @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o database.o `test -f 'src/database.c' || echo '$(srcdir)/'`src/database.c
-
-database.obj: src/database.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT database.obj -MD -MP -MF $(DEPDIR)/database.Tpo -c -o database.obj `if test -f 'src/database.c'; then $(CYGPATH_W) 'src/database.c'; else $(CYGPATH_W) '$(srcdir)/src/database.c'; fi`
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/database.Tpo $(DEPDIR)/database.Po
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='src/database.c' object='database.obj' libtool=no @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o database.obj `if test -f 'src/database.c'; then $(CYGPATH_W) 'src/database.c'; else $(CYGPATH_W) '$(srcdir)/src/database.c'; fi`
-
-database_setup.o: src/database_setup.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT database_setup.o -MD -MP -MF $(DEPDIR)/database_setup.Tpo -c -o database_setup.o `test -f 'src/database_setup.c' || echo '$(srcdir)/'`src/database_setup.c
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/database_setup.Tpo $(DEPDIR)/database_setup.Po
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='src/database_setup.c' object='database_setup.o' libtool=no @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o database_setup.o `test -f 'src/database_setup.c' || echo '$(srcdir)/'`src/database_setup.c
-
-database_setup.obj: src/database_setup.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT database_setup.obj -MD -MP -MF $(DEPDIR)/database_setup.Tpo -c -o database_setup.obj `if test -f 'src/database_setup.c'; then $(CYGPATH_W) 'src/database_setup.c'; else $(CYGPATH_W) '$(srcdir)/src/database_setup.c'; fi`
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/database_setup.Tpo $(DEPDIR)/database_setup.Po
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='src/database_setup.c' object='database_setup.obj' libtool=no @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o database_setup.obj `if test -f 'src/database_setup.c'; then $(CYGPATH_W) 'src/database_setup.c'; else $(CYGPATH_W) '$(srcdir)/src/database_setup.c'; fi`
-
-issue_new_dialog.o: src/issue_new_dialog.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT issue_new_dialog.o -MD -MP -MF $(DEPDIR)/issue_new_dialog.Tpo -c -o issue_new_dialog.o `test -f 'src/issue_new_dialog.c' || echo '$(srcdir)/'`src/issue_new_dialog.c
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/issue_new_dialog.Tpo $(DEPDIR)/issue_new_dialog.Po
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='src/issue_new_dialog.c' object='issue_new_dialog.o' libtool=no @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o issue_new_dialog.o `test -f 'src/issue_new_dialog.c' || echo '$(srcdir)/'`src/issue_new_dialog.c
-
-issue_new_dialog.obj: src/issue_new_dialog.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT issue_new_dialog.obj -MD -MP -MF $(DEPDIR)/issue_new_dialog.Tpo -c -o issue_new_dialog.obj `if test -f 'src/issue_new_dialog.c'; then $(CYGPATH_W) 'src/issue_new_dialog.c'; else $(CYGPATH_W) '$(srcdir)/src/issue_new_dialog.c'; fi`
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/issue_new_dialog.Tpo $(DEPDIR)/issue_new_dialog.Po
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='src/issue_new_dialog.c' object='issue_new_dialog.obj' libtool=no @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o issue_new_dialog.obj `if test -f 'src/issue_new_dialog.c'; then $(CYGPATH_W) 'src/issue_new_dialog.c'; else $(CYGPATH_W) '$(srcdir)/src/issue_new_dialog.c'; fi`
-
-issue_edit_dialog.o: src/issue_edit_dialog.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT issue_edit_dialog.o -MD -MP -MF $(DEPDIR)/issue_edit_dialog.Tpo -c -o issue_edit_dialog.o `test -f 'src/issue_edit_dialog.c' || echo '$(srcdir)/'`src/issue_edit_dialog.c
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/issue_edit_dialog.Tpo $(DEPDIR)/issue_edit_dialog.Po
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='src/issue_edit_dialog.c' object='issue_edit_dialog.o' libtool=no @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o issue_edit_dialog.o `test -f 'src/issue_edit_dialog.c' || echo '$(srcdir)/'`src/issue_edit_dialog.c
-
-issue_edit_dialog.obj: src/issue_edit_dialog.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT issue_edit_dialog.obj -MD -MP -MF $(DEPDIR)/issue_edit_dialog.Tpo -c -o issue_edit_dialog.obj `if test -f 'src/issue_edit_dialog.c'; then $(CYGPATH_W) 'src/issue_edit_dialog.c'; else $(CYGPATH_W) '$(srcdir)/src/issue_edit_dialog.c'; fi`
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/issue_edit_dialog.Tpo $(DEPDIR)/issue_edit_dialog.Po
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='src/issue_edit_dialog.c' object='issue_edit_dialog.obj' libtool=no @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o issue_edit_dialog.obj `if test -f 'src/issue_edit_dialog.c'; then $(CYGPATH_W) 'src/issue_edit_dialog.c'; else $(CYGPATH_W) '$(srcdir)/src/issue_edit_dialog.c'; fi`
-
-project_new_dialog.o: src/project_new_dialog.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT project_new_dialog.o -MD -MP -MF $(DEPDIR)/project_new_dialog.Tpo -c -o project_new_dialog.o `test -f 'src/project_new_dialog.c' || echo '$(srcdir)/'`src/project_new_dialog.c
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/project_new_dialog.Tpo $(DEPDIR)/project_new_dialog.Po
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='src/project_new_dialog.c' object='project_new_dialog.o' libtool=no @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o project_new_dialog.o `test -f 'src/project_new_dialog.c' || echo '$(srcdir)/'`src/project_new_dialog.c
-
-project_new_dialog.obj: src/project_new_dialog.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT project_new_dialog.obj -MD -MP -MF $(DEPDIR)/project_new_dialog.Tpo -c -o project_new_dialog.obj `if test -f 'src/project_new_dialog.c'; then $(CYGPATH_W) 'src/project_new_dialog.c'; else $(CYGPATH_W) '$(srcdir)/src/project_new_dialog.c'; fi`
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/project_new_dialog.Tpo $(DEPDIR)/project_new_dialog.Po
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='src/project_new_dialog.c' object='project_new_dialog.obj' libtool=no @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o project_new_dialog.obj `if test -f 'src/project_new_dialog.c'; then $(CYGPATH_W) 'src/project_new_dialog.c'; else $(CYGPATH_W) '$(srcdir)/src/project_new_dialog.c'; fi`
-
-project_edit_dialog.o: src/project_edit_dialog.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT project_edit_dialog.o -MD -MP -MF $(DEPDIR)/project_edit_dialog.Tpo -c -o project_edit_dialog.o `test -f 'src/project_edit_dialog.c' || echo '$(srcdir)/'`src/project_edit_dialog.c
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/project_edit_dialog.Tpo $(DEPDIR)/project_edit_dialog.Po
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='src/project_edit_dialog.c' object='project_edit_dialog.o' libtool=no @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o project_edit_dialog.o `test -f 'src/project_edit_dialog.c' || echo '$(srcdir)/'`src/project_edit_dialog.c
-
-project_edit_dialog.obj: src/project_edit_dialog.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT project_edit_dialog.obj -MD -MP -MF $(DEPDIR)/project_edit_dialog.Tpo -c -o project_edit_dialog.obj `if test -f 'src/project_edit_dialog.c'; then $(CYGPATH_W) 'src/project_edit_dialog.c'; else $(CYGPATH_W) '$(srcdir)/src/project_edit_dialog.c'; fi`
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/project_edit_dialog.Tpo $(DEPDIR)/project_edit_dialog.Po
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='src/project_edit_dialog.c' object='project_edit_dialog.obj' libtool=no @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o project_edit_dialog.obj `if test -f 'src/project_edit_dialog.c'; then $(CYGPATH_W) 'src/project_edit_dialog.c'; else $(CYGPATH_W) '$(srcdir)/src/project_edit_dialog.c'; fi`
-
-project_main_dialog.o: src/project_main_dialog.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT project_main_dialog.o -MD -MP -MF $(DEPDIR)/project_main_dialog.Tpo -c -o project_main_dialog.o `test -f 'src/project_main_dialog.c' || echo '$(srcdir)/'`src/project_main_dialog.c
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/project_main_dialog.Tpo $(DEPDIR)/project_main_dialog.Po
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='src/project_main_dialog.c' object='project_main_dialog.o' libtool=no @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o project_main_dialog.o `test -f 'src/project_main_dialog.c' || echo '$(srcdir)/'`src/project_main_dialog.c
-
-project_main_dialog.obj: src/project_main_dialog.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT project_main_dialog.obj -MD -MP -MF $(DEPDIR)/project_main_dialog.Tpo -c -o project_main_dialog.obj `if test -f 'src/project_main_dialog.c'; then $(CYGPATH_W) 'src/project_main_dialog.c'; else $(CYGPATH_W) '$(srcdir)/src/project_main_dialog.c'; fi`
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/project_main_dialog.Tpo $(DEPDIR)/project_main_dialog.Po
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='src/project_main_dialog.c' object='project_main_dialog.obj' libtool=no @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o project_main_dialog.obj `if test -f 'src/project_main_dialog.c'; then $(CYGPATH_W) 'src/project_main_dialog.c'; else $(CYGPATH_W) '$(srcdir)/src/project_main_dialog.c'; fi`
-
-main_dialog.o: src/main_dialog.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT main_dialog.o -MD -MP -MF $(DEPDIR)/main_dialog.Tpo -c -o main_dialog.o `test -f 'src/main_dialog.c' || echo '$(srcdir)/'`src/main_dialog.c
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/main_dialog.Tpo $(DEPDIR)/main_dialog.Po
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='src/main_dialog.c' object='main_dialog.o' libtool=no @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o main_dialog.o `test -f 'src/main_dialog.c' || echo '$(srcdir)/'`src/main_dialog.c
-
-main_dialog.obj: src/main_dialog.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT main_dialog.obj -MD -MP -MF $(DEPDIR)/main_dialog.Tpo -c -o main_dialog.obj `if test -f 'src/main_dialog.c'; then $(CYGPATH_W) 'src/main_dialog.c'; else $(CYGPATH_W) '$(srcdir)/src/main_dialog.c'; fi`
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/main_dialog.Tpo $(DEPDIR)/main_dialog.Po
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='src/main_dialog.c' object='main_dialog.obj' libtool=no @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o main_dialog.obj `if test -f 'src/main_dialog.c'; then $(CYGPATH_W) 'src/main_dialog.c'; else $(CYGPATH_W) '$(srcdir)/src/main_dialog.c'; fi`
 
 ID: $(am__tagged_files)
 	$(am__define_uniq_tagged_files); mkid -fID $$unique
@@ -792,6 +691,8 @@ clean-generic:
 distclean-generic:
 	-test -z "$(CONFIG_CLEAN_FILES)" || rm -f $(CONFIG_CLEAN_FILES)
 	-test . = "$(srcdir)" || test -z "$(CONFIG_CLEAN_VPATH_FILES)" || rm -f $(CONFIG_CLEAN_VPATH_FILES)
+	-rm -f src/$(DEPDIR)/$(am__dirstamp)
+	-rm -f src/$(am__dirstamp)
 
 maintainer-clean-generic:
 	@echo "This command is intended for maintainers to use"
@@ -802,7 +703,7 @@ clean-am: clean-binPROGRAMS clean-generic mostlyclean-am
 
 distclean: distclean-am
 	-rm -f $(am__CONFIG_DISTCLEAN_FILES)
-	-rm -rf ./$(DEPDIR)
+	-rm -rf src/$(DEPDIR)
 	-rm -f Makefile
 distclean-am: clean-am distclean-compile distclean-generic \
 	distclean-hdr distclean-tags
@@ -850,7 +751,7 @@ installcheck-am:
 maintainer-clean: maintainer-clean-am
 	-rm -f $(am__CONFIG_DISTCLEAN_FILES)
 	-rm -rf $(top_srcdir)/autom4te.cache
-	-rm -rf ./$(DEPDIR)
+	-rm -rf src/$(DEPDIR)
 	-rm -f Makefile
 maintainer-clean-am: distclean-am maintainer-clean-generic
 
