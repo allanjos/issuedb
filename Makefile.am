@@ -1,7 +1,8 @@
 AUTOMAKE_OPTIONS = foreign
 
 CFLAGS=-Wall $(GTK_CFLAGS) -I$(srcdir)/include
-LDFLAGS=-L. $(GTK_LIBS)
+LDFLAGS=-L.
+LDADD=$(GTK_LIBS)
 
 bin_PROGRAMS = issuedb
 issuedb_SOURCES = src/sqlite3.c \

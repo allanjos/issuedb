@@ -60,5 +60,5 @@
 /* Version number of package */
 #undef VERSION
 
-/* Build with the GTK+-3.0 interface */
+/* Build with the GTK+-2.0 interface */
 #undef with_gtk2
