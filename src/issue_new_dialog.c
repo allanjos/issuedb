@@ -2,7 +2,7 @@
 /*
  * issue_new_dialog.c
  * Copyright (C) 2013 Allann Jones <allanjos[at]gmail.com>
- * 
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions
  * are met:
@@ -14,7 +14,7 @@
  * 3. Neither the name ``Allann Jones'' nor the name of any other
  *    contributor may be used to endorse or promote products derived
  *    from this software without specific prior written permission.
- * 
+ *
  * issuedb IS PROVIDED BY Allann Jones ``AS IS'' AND ANY EXPRESS
  * OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
  * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
@@ -53,10 +53,6 @@ GtkWidget *scroll;
 int issue_new_dialog_open(GtkWidget *parent) {
   window_issue_new = gtk_window_new(GTK_WINDOW_TOPLEVEL);
 
-  gtk_window_set_transient_for(GTK_WINDOW(window_issue_new), GTK_WINDOW(parent));
-
-  gtk_window_set_position(GTK_WINDOW(window_issue_new), GTK_WIN_POS_CENTER_ON_PARENT);
-
   gtk_window_set_modal(GTK_WINDOW(window_issue_new), TRUE);
 
   gtk_window_set_default_size(GTK_WINDOW(window_issue_new), 750, 450);
@@ -64,6 +60,12 @@ int issue_new_dialog_open(GtkWidget *parent) {
   gtk_window_set_title(GTK_WINDOW(window_issue_new), "New Issue");
 
   gtk_container_set_border_width(GTK_CONTAINER(window_issue_new), 5);
+
+  gtk_window_set_type_hint(GTK_WINDOW(window_issue_new), GDK_WINDOW_TYPE_HINT_DIALOG);
+
+  gtk_window_set_transient_for(GTK_WINDOW(window_issue_new), GTK_WINDOW(parent));
+
+  gtk_window_set_position(GTK_WINDOW(window_issue_new), GTK_WIN_POS_CENTER_ON_PARENT);
 
 
   GtkWidget *sizer_top;
@@ -105,7 +107,7 @@ int issue_new_dialog_open(GtkWidget *parent) {
   renderer = gtk_cell_renderer_text_new();
   gtk_cell_layout_pack_start(GTK_CELL_LAYOUT(combo_project), renderer, TRUE);
   gtk_cell_layout_set_attributes(GTK_CELL_LAYOUT(combo_project), renderer, "text", 0, NULL);
-  
+
   g_object_unref(G_OBJECT(list_store_projects));
 
 
@@ -175,7 +177,7 @@ int issue_new_dialog_open(GtkWidget *parent) {
   priority_name_renderer = gtk_cell_renderer_text_new();
   gtk_cell_layout_pack_start(GTK_CELL_LAYOUT(combo_priority), priority_name_renderer, TRUE);
   gtk_cell_layout_set_attributes(GTK_CELL_LAYOUT(combo_priority), priority_name_renderer, "text", 0, NULL);
-  
+
   g_object_unref(G_OBJECT(list_store_priorities));
 
   gtk_combo_box_set_active(GTK_COMBO_BOX(combo_priority), 0);
@@ -214,6 +216,13 @@ int issue_new_dialog_open(GtkWidget *parent) {
   gtk_list_store_set(list_store_os, &iter_os, 0, "OpenBSD", 1, 5, -1);
 
   gtk_list_store_append(list_store_os, &iter_os);
+  gtk_list_store_set(list_store_os, &iter_os, 0, "Android", 1, 6, -1);
+
+
+  gtk_list_store_append(list_store_os, &iter_os);
+  gtk_list_store_set(list_store_os, &iter_os, 0, "iOS", 1, 7, -1);
+
+  gtk_list_store_append(list_store_os, &iter_os);
   gtk_list_store_set(list_store_os, &iter_os, 0, "Other operating system", 1, 999, -1);
 
   gtk_list_store_append(list_store_os, &iter_os);
@@ -226,7 +235,7 @@ int issue_new_dialog_open(GtkWidget *parent) {
   os_name_renderer = gtk_cell_renderer_text_new();
   gtk_cell_layout_pack_start(GTK_CELL_LAYOUT(combo_os), os_name_renderer, TRUE);
   gtk_cell_layout_set_attributes(GTK_CELL_LAYOUT(combo_os), os_name_renderer, "text", 0, NULL);
-  
+
   g_object_unref(G_OBJECT(list_store_os));
 
   // Status
@@ -338,12 +347,12 @@ int issue_new_dialog_open(GtkWidget *parent) {
   gtk_box_pack_end(GTK_BOX(sizer_buttons), button_save, FALSE, FALSE, 3);
 
   // Close window using button
-  
+
   g_signal_connect(G_OBJECT(button_close), "clicked",
                    G_CALLBACK(on_issue_new_button_close_clicked), G_OBJECT(window_issue_new));
 
   // Save issue information
-  
+
   g_signal_connect(G_OBJECT(button_save), "clicked",
                    G_CALLBACK(on_issue_new_button_save_clicked), G_OBJECT(window_issue_new));
 

@@ -42,7 +42,7 @@
 
 
 GtkWidget *project_edit_entry_name = NULL;
-GtkWidget *window_project_edit = NULL;
+GtkWidget *window = NULL;
 GtkWidget *project_edit_combo_status = NULL;
 
 int project_edit_dialog_project_id = 0;
@@ -51,25 +51,27 @@ int project_edit_dialog_project_id = 0;
 int project_edit_dialog_open(GtkWidget *parent, int project_id) {
   project_edit_dialog_project_id = project_id;
 
-  window_project_edit = gtk_window_new(GTK_WINDOW_TOPLEVEL);
+  window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
 
-  gtk_window_set_transient_for(GTK_WINDOW(window_project_edit), GTK_WINDOW(parent));
+  gtk_window_set_modal(GTK_WINDOW(window), TRUE);
 
-  gtk_window_set_position(GTK_WINDOW(window_project_edit), GTK_WIN_POS_CENTER_ON_PARENT);
+  gtk_window_set_default_size(GTK_WINDOW(window), 600, 200);
 
-  gtk_window_set_modal(GTK_WINDOW(window_project_edit), TRUE);
+  gtk_window_set_title(GTK_WINDOW(window), "Project information");
 
-  gtk_window_set_default_size(GTK_WINDOW(window_project_edit), 600, 200);
+  gtk_container_set_border_width(GTK_CONTAINER(window), 5);
 
-  gtk_window_set_title(GTK_WINDOW(window_project_edit), "Project information");
+  gtk_window_set_type_hint(GTK_WINDOW(window), GDK_WINDOW_TYPE_HINT_DIALOG);
 
-  gtk_container_set_border_width(GTK_CONTAINER(window_project_edit), 5);
+  gtk_window_set_transient_for(GTK_WINDOW(window), GTK_WINDOW(parent));
+
+  gtk_window_set_position(GTK_WINDOW(window), GTK_WIN_POS_CENTER_ON_PARENT);
 
 
   GtkWidget *sizer_top;
 
   sizer_top = gtk_vbox_new(FALSE, 0);
-  gtk_container_add(GTK_CONTAINER(window_project_edit), sizer_top);
+  gtk_container_add(GTK_CONTAINER(window), sizer_top);
 
   // Grid sizer
 
@@ -177,20 +179,20 @@ int project_edit_dialog_open(GtkWidget *parent, int project_id) {
   // Close window using button
   
   g_signal_connect(G_OBJECT(button_close), "clicked",
-                   G_CALLBACK(on_project_edit_button_close_clicked), G_OBJECT(window_project_edit));
+                   G_CALLBACK(on_project_edit_button_close_clicked), G_OBJECT(window));
 
   // Save issue information
   
   g_signal_connect(G_OBJECT(button_save), "clicked",
-                   G_CALLBACK(on_project_edit_button_save_clicked), G_OBJECT(window_project_edit));
+                   G_CALLBACK(on_project_edit_button_save_clicked), G_OBJECT(window));
 
   // Delete issue information
   
   g_signal_connect(G_OBJECT(button_delete), "clicked",
-                   G_CALLBACK(on_project_edit_button_delete_clicked), G_OBJECT(window_project_edit));
+                   G_CALLBACK(on_project_edit_button_delete_clicked), G_OBJECT(window));
 
 
-  gtk_widget_show_all(window_project_edit);
+  gtk_widget_show_all(window);
 
 
   project_edit_dialog_load_data();
@@ -205,7 +207,7 @@ int project_edit_dialog_open(GtkWidget *parent, int project_id) {
 
 void project_edit_dialog_close()
 {
-  gtk_widget_destroy(GTK_WIDGET(window_project_edit));
+  gtk_widget_destroy(GTK_WIDGET(window));
 }
 
 
@@ -303,7 +305,7 @@ int project_edit_dialog_save_data()
   // Check values
 
   if (g_utf8_strlen(gtk_entry_get_text(GTK_ENTRY(project_edit_entry_name)), -1) <= 0) {
-    GtkWidget *dialog = gtk_message_dialog_new(GTK_WINDOW(window_project_edit),
+    GtkWidget *dialog = gtk_message_dialog_new(GTK_WINDOW(window),
                                              GTK_DIALOG_DESTROY_WITH_PARENT,
                                              GTK_MESSAGE_ERROR,
                                              GTK_BUTTONS_CLOSE,
@@ -317,7 +319,7 @@ int project_edit_dialog_save_data()
   }
 
   if (!gtk_combo_box_get_active_iter(GTK_COMBO_BOX(project_edit_combo_status), &iter_status)) {
-    GtkWidget *dialog = gtk_message_dialog_new(GTK_WINDOW(window_project_edit),
+    GtkWidget *dialog = gtk_message_dialog_new(GTK_WINDOW(window),
                                              GTK_DIALOG_DESTROY_WITH_PARENT,
                                              GTK_MESSAGE_ERROR,
                                              GTK_BUTTONS_CLOSE,
@@ -370,7 +372,7 @@ int project_edit_dialog_save_data()
   if (rc != SQLITE_OK) {
     gchar *user_message = g_strdup_printf("Database error: %s\n", error_message);
 
-    GtkWidget *dialog = gtk_message_dialog_new(GTK_WINDOW(window_project_edit),
+    GtkWidget *dialog = gtk_message_dialog_new(GTK_WINDOW(window),
                                              GTK_DIALOG_DESTROY_WITH_PARENT,
                                              GTK_MESSAGE_ERROR,
                                              GTK_BUTTONS_CLOSE,
@@ -408,13 +410,13 @@ int project_edit_dialog_save_data()
 
 void on_project_edit_button_delete_clicked(GtkWidget *widget, gpointer data)
 {
-  GtkWidget *dialog = gtk_message_dialog_new(GTK_WINDOW(window_project_edit),
+  GtkWidget *dialog = gtk_message_dialog_new(GTK_WINDOW(window),
                                              GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT,
                                              GTK_MESSAGE_QUESTION,
                                              GTK_BUTTONS_YES_NO,
                                              "Are you sure to delete the issue data?");
 
-  gtk_window_set_transient_for(GTK_WINDOW(dialog), GTK_WINDOW(window_project_edit));
+  gtk_window_set_transient_for(GTK_WINDOW(dialog), GTK_WINDOW(window));
 
   gtk_window_set_position(GTK_WINDOW(dialog), GTK_WIN_POS_CENTER_ON_PARENT);
 
@@ -454,7 +456,7 @@ int project_edit_dialog_delete()
   if (rc != SQLITE_OK) {
     gchar *user_message = g_strdup_printf("Database error: %s\n", error_message);
 
-    GtkWidget *dialog = gtk_message_dialog_new(GTK_WINDOW(window_project_edit),
+    GtkWidget *dialog = gtk_message_dialog_new(GTK_WINDOW(window),
                                                GTK_DIALOG_DESTROY_WITH_PARENT,
                                                GTK_MESSAGE_ERROR,
                                                GTK_BUTTONS_CLOSE,

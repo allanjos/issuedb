@@ -51,10 +51,6 @@ GtkWidget *project_main_window = NULL;
 int project_main_dialog_open(GtkWidget *parent) {
   project_main_window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
 
-  gtk_window_set_transient_for(GTK_WINDOW(project_main_window), GTK_WINDOW(parent));
-
-  gtk_window_set_position(GTK_WINDOW(project_main_window), GTK_WIN_POS_CENTER_ON_PARENT);
-
   gtk_window_set_modal(GTK_WINDOW(project_main_window), TRUE);
 
   gtk_window_set_default_size(GTK_WINDOW(project_main_window), 750, 450);
@@ -62,6 +58,12 @@ int project_main_dialog_open(GtkWidget *parent) {
   gtk_window_set_title(GTK_WINDOW(project_main_window), "Projects");
 
   gtk_container_set_border_width(GTK_CONTAINER(project_main_window), 0);
+
+  gtk_window_set_type_hint(GTK_WINDOW(project_main_window), GDK_WINDOW_TYPE_HINT_DIALOG);
+
+  gtk_window_set_transient_for(GTK_WINDOW(project_main_window), GTK_WINDOW(parent));
+
+  gtk_window_set_position(GTK_WINDOW(project_main_window), GTK_WIN_POS_CENTER_ON_PARENT);
 
 
   GtkWidget *sizer_top;
@@ -138,6 +140,19 @@ int project_main_dialog_open(GtkWidget *parent) {
 
   project_main_dialog_init_list(project_main_treeview);
 
+  // Position window
+
+  /*
+  gtk_window_get_position(GTK_WINDOW(project_main_window), &x, &y);
+  printf("current position is:\nx: %i\ny:%i\n", x, y);
+
+  gtk_window_set_position(GTK_WINDOW(project_main_window), GTK_WIN_POS_CENTER_ALWAYS);
+
+  gtk_window_get_position(GTK_WINDOW(project_main_window), &x, &y);
+  printf("current position is:\nx: %i\ny:%i\n", x, y);
+  */
+
+  //
 
   gtk_widget_show_all(project_main_window);
 

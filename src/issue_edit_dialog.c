@@ -58,10 +58,6 @@ int issue_edit_dialog_open(GtkWidget *parent, int issue_id) {
 
   window_issue_edit = gtk_window_new(GTK_WINDOW_TOPLEVEL);
 
-  gtk_window_set_transient_for(GTK_WINDOW(window_issue_edit), GTK_WINDOW(parent));
-
-  gtk_window_set_position(GTK_WINDOW(window_issue_edit), GTK_WIN_POS_CENTER_ON_PARENT);
-
   gtk_window_set_modal(GTK_WINDOW(window_issue_edit), TRUE);
 
   gtk_window_set_default_size(GTK_WINDOW(window_issue_edit), 750, 450);
@@ -69,6 +65,12 @@ int issue_edit_dialog_open(GtkWidget *parent, int issue_id) {
   gtk_window_set_title(GTK_WINDOW(window_issue_edit), "Issue information");
 
   gtk_container_set_border_width(GTK_CONTAINER(window_issue_edit), 5);
+
+  gtk_window_set_type_hint(GTK_WINDOW(window_issue_edit), GDK_WINDOW_TYPE_HINT_DIALOG);
+
+  gtk_window_set_transient_for(GTK_WINDOW(window_issue_edit), GTK_WINDOW(parent));
+
+  gtk_window_set_position(GTK_WINDOW(window_issue_edit), GTK_WIN_POS_CENTER_ON_PARENT);
 
 
   GtkWidget *sizer_top;
@@ -217,6 +219,12 @@ int issue_edit_dialog_open(GtkWidget *parent, int issue_id) {
 
   gtk_list_store_append(list_store_os, &iter_os);
   gtk_list_store_set(list_store_os, &iter_os, 0, "OpenBSD", 1, 5, -1);
+
+  gtk_list_store_append(list_store_os, &iter_os);
+  gtk_list_store_set(list_store_os, &iter_os, 0, "Android", 1, 6, -1);
+
+  gtk_list_store_append(list_store_os, &iter_os);
+  gtk_list_store_set(list_store_os, &iter_os, 0, "iOS", 1, 7, -1);
 
   gtk_list_store_append(list_store_os, &iter_os);
   gtk_list_store_set(list_store_os, &iter_os, 0, "Other operating system", 1, 999, -1);

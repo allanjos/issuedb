@@ -88,8 +88,6 @@ int main(int argc, char *argv[])
 
   main_dialog_window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
 
-  gtk_window_set_position(GTK_WINDOW(main_dialog_window), GTK_WIN_POS_CENTER);
-
   gtk_window_set_default_size(GTK_WINDOW(main_dialog_window), 950, 600);
 
   gtk_window_set_title(GTK_WINDOW(main_dialog_window), APP_NAME);
@@ -99,6 +97,15 @@ int main(int argc, char *argv[])
   g_signal_connect(main_dialog_window, "destroy", G_CALLBACK(main_dialog_on_destroy_request), NULL);
 
   gtk_container_set_border_width(GTK_CONTAINER(main_dialog_window), 0);
+
+  /*
+  gtk_window_set_type_hint(GTK_WINDOW(main_dialog_window), GDK_WINDOW_TYPE_HINT_NORMAL);
+
+  */
+
+  gtk_window_set_gravity(GTK_WINDOW(main_dialog_window), GDK_GRAVITY_STATIC);
+
+  gtk_window_set_position(GTK_WINDOW(main_dialog_window), GTK_WIN_POS_CENTER);
 
   // Main sizer
 
@@ -264,6 +271,7 @@ int main(int argc, char *argv[])
 
   gtk_widget_grab_focus(GTK_WIDGET(treeview));
 
+  // Load data
 
   issue_new_dialog_init_list(treeview);
 
@@ -275,6 +283,19 @@ int main(int argc, char *argv[])
   // Show widgets
 
   gtk_widget_show_all(main_dialog_window);
+
+  // Position window
+
+  //gtk_window_get_position(GTK_WINDOW(main_dialog_window), &x, &y);
+  //printf("current position is:\nx: %i\ny:%i\n", x, y);
+
+  gtk_window_set_gravity(GTK_WINDOW(main_dialog_window), GDK_GRAVITY_CENTER);
+  gtk_window_move(GTK_WINDOW(main_dialog_window), 0, 0);
+  //gtk_window_set_position(GTK_WINDOW(main_dialog_window), GTK_WIN_POS_CENTER);
+  //gtk_window_move(GTK_WINDOW(main_dialog_window), 420, 180);
+
+  //gtk_window_get_position(GTK_WINDOW(main_dialog_window), &x, &y);
+  //printf("current position is:\nx: %i\ny:%i\n", x, y);
 
 
   gtk_main();
@@ -817,6 +838,10 @@ void gtk_main_about_dialog_callback(GtkWidget *widget, gpointer data)
   char app_version[10] = {0};
 
   GtkWidget *dialog = gtk_about_dialog_new();
+
+  gtk_window_set_type_hint(GTK_WINDOW(dialog), GDK_WINDOW_TYPE_HINT_DIALOG);
+
+  gtk_window_set_transient_for(GTK_WINDOW(dialog), GTK_WINDOW(main_dialog_window));
 
   gtk_window_set_position(GTK_WINDOW(dialog), GTK_WIN_POS_CENTER_ON_PARENT);
 

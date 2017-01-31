@@ -53,10 +53,6 @@ GtkWidget *project_new_dialog_description_scroll;
 int project_new_dialog_open(GtkWidget *parent) {
   project_new_dialog_window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
 
-  gtk_window_set_transient_for(GTK_WINDOW(project_new_dialog_window), GTK_WINDOW(parent));
-
-  gtk_window_set_position(GTK_WINDOW(project_new_dialog_window), GTK_WIN_POS_CENTER_ON_PARENT);
-
   gtk_window_set_modal(GTK_WINDOW(project_new_dialog_window), TRUE);
 
   gtk_window_set_default_size(GTK_WINDOW(project_new_dialog_window), 600, 200);
@@ -64,6 +60,12 @@ int project_new_dialog_open(GtkWidget *parent) {
   gtk_window_set_title(GTK_WINDOW(project_new_dialog_window), "New Project");
 
   gtk_container_set_border_width(GTK_CONTAINER(project_new_dialog_window), 5);
+
+  gtk_window_set_type_hint(GTK_WINDOW(project_new_dialog_window), GDK_WINDOW_TYPE_HINT_DIALOG);
+
+  gtk_window_set_transient_for(GTK_WINDOW(project_new_dialog_window), GTK_WINDOW(parent));
+
+  gtk_window_set_position(GTK_WINDOW(project_new_dialog_window), GTK_WIN_POS_CENTER_ON_PARENT);
 
 
   GtkWidget *sizer_top;
