@@ -2,7 +2,7 @@
 
 A simple, standalone tracker.
 
-## BUILD ##
+## Build ##
 
 Update build configure to the system:
 
@@ -22,9 +22,13 @@ Build:
 
 `make`
 
+## Execution ##
+
 Execute application:
 
 `./issuedb`
+
+## Installation
 
 To install on the prefix specified in configure call:
 
