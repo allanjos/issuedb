@@ -2,4 +2,4 @@
 
 A simple, standalone tracker.
 
-For more information, [read the documentation](wiki "Wiki pages")
+For more information, [read the documentation](https://github.com/allanjos/issuedb/wiki "Wiki pages")
