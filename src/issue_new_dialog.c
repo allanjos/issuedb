@@ -1,7 +1,7 @@
-/* -*- Mode: C; indent-tabs-mode: t; c-basic-offset: 4; tab-width: 4 -*-  */
 /*
- * issue_new_dialog.c
- * Copyright (C) 2013 Allann Jones <allanjos[at]gmail.com>
+ * @file issue_new_dialog.c
+ * @author Allann Jones <allanjos[at]gmail.com>
+ * @since 2013
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions
@@ -68,34 +68,29 @@ int issue_new_dialog_open(GtkWidget *parent) {
   gtk_window_set_position(GTK_WINDOW(window_issue_new), GTK_WIN_POS_CENTER_ON_PARENT);
 
 
-  GtkWidget *sizer_top;
+  GtkWidget *box_top;
 
-  sizer_top = gtk_vbox_new(FALSE, 0);
-  gtk_container_add(GTK_CONTAINER(window_issue_new), sizer_top);
+  box_top = gtk_box_new(GTK_ORIENTATION_VERTICAL, 0);
+  gtk_container_add(GTK_CONTAINER(window_issue_new), box_top);
 
-  // Grid sizer
+  // Grid
 
-  GtkWidget *table_fields = gtk_table_new(2, 2, FALSE);
+  GtkWidget *grid = gtk_grid_new();
+  gtk_box_pack_start(GTK_BOX(box_top), grid, TRUE, TRUE, 5);
 
-  gtk_box_pack_start(GTK_BOX(sizer_top), table_fields, TRUE, TRUE, 3);
+  gtk_grid_set_column_homogeneous(GTK_GRID(grid), FALSE);
 
-  gtk_table_set_row_spacings(GTK_TABLE(table_fields), 3);
-  gtk_table_set_col_spacings(GTK_TABLE(table_fields), 3);
+  gtk_grid_set_row_spacing(GTK_GRID(grid), 5);
+  gtk_grid_set_column_spacing(GTK_GRID(grid), 5);
 
   // Project
 
-  GtkWidget *alignment_label = gtk_alignment_new(1, 0, 0, 0);
-  gtk_table_attach(GTK_TABLE(table_fields), alignment_label, 0, 1, 0, 1, GTK_FILL, GTK_SHRINK, 0, 0);
-
   GtkWidget *label = gtk_label_new("Project: ");
-  gtk_container_add(GTK_CONTAINER(alignment_label), label);
-
-  GtkWidget *alignment_combo = gtk_alignment_new(0, 0, 0, 0);
-  gtk_table_attach(GTK_TABLE(table_fields), alignment_combo, 1, 2, 0, 1, GTK_FILL, GTK_SHRINK, 0, 0);
+  gtk_grid_attach(GTK_GRID(grid), label, 0, 0, 1, 1);
 
   // Create combo box with store as data source
   combo_project = gtk_combo_box_new();
-  gtk_container_add(GTK_CONTAINER(alignment_combo), combo_project);
+  gtk_grid_attach(GTK_GRID(grid), combo_project, 1, 0, 1, 1);
 
   // Data model
   GtkListStore *list_store_projects = gtk_list_store_new(2, G_TYPE_STRING, G_TYPE_INT);
@@ -113,46 +108,33 @@ int issue_new_dialog_open(GtkWidget *parent) {
 
   // Issue name
 
-  alignment_label = gtk_alignment_new(1, 0, 0, 0);
-  gtk_table_attach(GTK_TABLE(table_fields), alignment_label, 0, 1, 1, 2, GTK_FILL, GTK_SHRINK, 0, 0);
-
   label = gtk_label_new("Summary: ");
-  gtk_container_add(GTK_CONTAINER(alignment_label), label);
+  gtk_grid_attach(GTK_GRID(grid), label, 0, 1, 1, 1);
 
   entry_summary = gtk_entry_new();
-  gtk_table_attach(GTK_TABLE(table_fields), entry_summary, 1, 2, 1, 2, GTK_FILL, GTK_SHRINK, 0, 0);
+  gtk_grid_attach(GTK_GRID(grid), entry_summary, 1, 1, 1, 1);
+
+  gtk_widget_set_hexpand(entry_summary, TRUE);
 
   gtk_entry_set_width_chars(GTK_ENTRY(entry_summary), 30);
 
   // Version
 
-  alignment_label = gtk_alignment_new(1, 0, 0, 0);
-  gtk_table_attach(GTK_TABLE(table_fields), alignment_label, 0, 1, 2, 3, GTK_FILL, GTK_SHRINK, 0, 0);
-
   label = gtk_label_new("Version: ");
-  gtk_container_add(GTK_CONTAINER(alignment_label), label);
-
-  GtkWidget *alignment_version = gtk_alignment_new(0, 0, 0, 0);
-  gtk_table_attach(GTK_TABLE(table_fields), alignment_version, 1, 2, 2, 3, GTK_FILL, GTK_SHRINK, 0, 0);
+  gtk_grid_attach(GTK_GRID(grid), label, 0, 2, 1, 1);
 
   entry_version = gtk_entry_new();
-  gtk_container_add(GTK_CONTAINER(alignment_version), entry_version);
+  gtk_grid_attach(GTK_GRID(grid), entry_version, 1, 2, 1, 1);
 
   gtk_entry_set_width_chars(GTK_ENTRY(entry_version), 15);
 
   // Priority
 
-  alignment_label = gtk_alignment_new(1, 0, 0, 0);
-  gtk_table_attach(GTK_TABLE(table_fields), alignment_label, 0, 1, 3, 4, GTK_FILL, GTK_SHRINK, 0, 0);
-
   label = gtk_label_new("Priority: ");
-  gtk_container_add(GTK_CONTAINER(alignment_label), label);
-
-  GtkWidget *alignment_priority = gtk_alignment_new(0, 0, 0, 0);
-  gtk_table_attach(GTK_TABLE(table_fields), alignment_priority, 1, 2, 3, 4, GTK_FILL, GTK_SHRINK, 0, 0);
+  gtk_grid_attach(GTK_GRID(grid), label, 0, 3, 1, 1);
 
   combo_priority = gtk_combo_box_new();
-  gtk_container_add(GTK_CONTAINER(alignment_priority), combo_priority);
+  gtk_grid_attach(GTK_GRID(grid), combo_priority, 1, 3, 1, 1);
 
   // Data model
   GtkListStore *list_store_priorities = gtk_list_store_new(2, G_TYPE_STRING, G_TYPE_INT);
@@ -184,17 +166,11 @@ int issue_new_dialog_open(GtkWidget *parent) {
 
   // Operating system
 
-  alignment_label = gtk_alignment_new(1, 0, 0, 0);
-  gtk_table_attach(GTK_TABLE(table_fields), alignment_label, 0, 1, 4, 5, GTK_FILL, GTK_SHRINK, 0, 0);
-
   label = gtk_label_new("OS: ");
-  gtk_container_add(GTK_CONTAINER(alignment_label), label);
-
-  GtkWidget *alignment_os = gtk_alignment_new(0, 0, 0, 0);
-  gtk_table_attach(GTK_TABLE(table_fields), alignment_os, 1, 2, 4, 5, GTK_FILL, GTK_SHRINK, 0, 0);
+  gtk_grid_attach(GTK_GRID(grid), label, 0, 4, 1, 1);
 
   combo_os = gtk_combo_box_new();
-  gtk_container_add(GTK_CONTAINER(alignment_os), combo_os);
+  gtk_grid_attach(GTK_GRID(grid), combo_os, 1, 4, 1, 1);
 
   // Data model
   GtkListStore *list_store_os = gtk_list_store_new(2, G_TYPE_STRING, G_TYPE_INT);
@@ -240,17 +216,11 @@ int issue_new_dialog_open(GtkWidget *parent) {
 
   // Status
 
-  alignment_label = gtk_alignment_new(1, 0, 0, 0);
-  gtk_table_attach(GTK_TABLE(table_fields), alignment_label, 0, 1, 5, 6, GTK_FILL, GTK_SHRINK, 0, 0);
-
   label = gtk_label_new("Status: ");
-  gtk_container_add(GTK_CONTAINER(alignment_label), label);
-
-  GtkWidget *alignment_status = gtk_alignment_new(0, 0, 0, 0);
-  gtk_table_attach(GTK_TABLE(table_fields), alignment_status, 1, 2, 5, 6, GTK_FILL, GTK_SHRINK, 0, 0);
+  gtk_grid_attach(GTK_GRID(grid), label, 0, 5, 1, 1);
 
   combo_status = gtk_combo_box_new();
-  gtk_container_add(GTK_CONTAINER(alignment_status), combo_status);
+  gtk_grid_attach(GTK_GRID(grid), combo_status, 1, 5, 1, 1);
 
   // Data model
   GtkListStore *list_store_status = gtk_list_store_new(2, G_TYPE_STRING, G_TYPE_STRING);
@@ -285,11 +255,8 @@ int issue_new_dialog_open(GtkWidget *parent) {
 
   // Description
 
-  alignment_label = gtk_alignment_new(1, 0, 0, 0);
-  gtk_table_attach(GTK_TABLE(table_fields), alignment_label, 0, 1, 6, 7, GTK_FILL, GTK_EXPAND | GTK_FILL, 0, 0);
-
   label = gtk_label_new("Description: ");
-  gtk_container_add(GTK_CONTAINER(alignment_label), label);
+  gtk_grid_attach(GTK_GRID(grid), label, 0, 6, 1, 1);
 
   // scrolled window
 
@@ -297,14 +264,13 @@ int issue_new_dialog_open(GtkWidget *parent) {
 
   gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(scroll), GTK_POLICY_NEVER, GTK_POLICY_AUTOMATIC);
 
-  gtk_table_attach(GTK_TABLE(table_fields), scroll, 1, 2, 6, 7, GTK_EXPAND | GTK_FILL, GTK_EXPAND | GTK_FILL, 0, 0);
+  gtk_grid_attach(GTK_GRID(grid), scroll, 1, 6, 1, 1);
 
   // text view
 
   GtkTextBuffer *text_buffer;
 
   text_view = gtk_text_view_new();
-  //gtk_table_attach(GTK_TABLE(table_fields), text_view, 1, 2, 6, 7, GTK_EXPAND | GTK_FILL, GTK_EXPAND | GTK_FILL, 0, 0);
   gtk_container_add(GTK_CONTAINER(scroll), text_view);
 
   gtk_text_view_set_wrap_mode(GTK_TEXT_VIEW(text_view), GTK_WRAP_WORD_CHAR);
@@ -318,24 +284,26 @@ int issue_new_dialog_open(GtkWidget *parent) {
 
   // Buttons
 
-  GtkWidget *sizer_buttons = gtk_hbox_new(FALSE, 3);
-
-  gtk_box_pack_end(GTK_BOX(sizer_top), sizer_buttons, FALSE, FALSE, 3);
+  GtkWidget *sizer_buttons = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 0);
+  gtk_box_pack_start(GTK_BOX(box_top), sizer_buttons, FALSE, FALSE, 5);
 
   // Close button
 
-  GtkWidget *button_close = gtk_button_new_from_stock(GTK_STOCK_CLOSE);
+  GtkWidget *button_close = gtk_button_new_from_icon_name("window-close", GTK_ICON_SIZE_BUTTON);
+
+  gtk_button_set_label(GTK_BUTTON(button_close), "Close");
 
   GdkPixbuf *pixbuf = gdk_pixbuf_new_from_xpm_data((const char **) close_16x16_xpm);
   GtkWidget *image = gtk_image_new_from_pixbuf(pixbuf);
 
   gtk_button_set_image(GTK_BUTTON(button_close), image);
+  gtk_button_set_always_show_image(GTK_BUTTON(button_close), TRUE);
 
   gtk_box_pack_end(GTK_BOX(sizer_buttons), button_close, FALSE, FALSE, 3);
 
   // Save button
 
-  GtkWidget *button_save = gtk_button_new();
+  GtkWidget *button_save = gtk_button_new_from_icon_name("edit-save", GTK_ICON_SIZE_BUTTON);
 
   gtk_button_set_label(GTK_BUTTON(button_save), "Save");
 
@@ -343,8 +311,10 @@ int issue_new_dialog_open(GtkWidget *parent) {
   image = gtk_image_new_from_pixbuf(pixbuf);
 
   gtk_button_set_image(GTK_BUTTON(button_save), image);
+  gtk_button_set_always_show_image(GTK_BUTTON(button_save), TRUE);
 
   gtk_box_pack_end(GTK_BOX(sizer_buttons), button_save, FALSE, FALSE, 3);
+
 
   // Close window using button
 
@@ -366,7 +336,7 @@ int issue_new_dialog_open(GtkWidget *parent) {
   gtk_widget_grab_focus(GTK_WIDGET(combo_project));
 
 
-	return 0;
+  return 0;
 }
 
 

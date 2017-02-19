@@ -1,8 +1,8 @@
-/* -*- Mode: C; indent-tabs-mode: t; c-basic-offset: 4; tab-width: 4 -*-  */
 /*
- * project_main_dialog.c
- * Copyright (C) 2013 Allann Jones <allanjos[at]gmail.com>
- * 
+ * @file project_main_dialog.c
+ * @author Allann Jones <allanjos[at]gmail.com>
+ * @since 2013
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions
  * are met:
@@ -14,7 +14,7 @@
  * 3. Neither the name ``Allann Jones'' nor the name of any other
  *    contributor may be used to endorse or promote products derived
  *    from this software without specific prior written permission.
- * 
+ *
  * issuedb IS PROVIDED BY Allann Jones ``AS IS'' AND ANY EXPRESS
  * OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
  * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
@@ -66,10 +66,10 @@ int project_main_dialog_open(GtkWidget *parent) {
   gtk_window_set_position(GTK_WINDOW(project_main_window), GTK_WIN_POS_CENTER_ON_PARENT);
 
 
-  GtkWidget *sizer_top;
+  GtkWidget *box_top;
 
-  sizer_top = gtk_vbox_new(FALSE, 0);
-  gtk_container_add(GTK_CONTAINER(project_main_window), sizer_top);
+  box_top = gtk_box_new(GTK_ORIENTATION_VERTICAL, 0);
+  gtk_container_add(GTK_CONTAINER(project_main_window), box_top);
 
 
   // Toolbar
@@ -77,7 +77,7 @@ int project_main_dialog_open(GtkWidget *parent) {
   GtkWidget *toolbar = gtk_toolbar_new();
   gtk_toolbar_set_style(GTK_TOOLBAR(toolbar), GTK_TOOLBAR_ICONS);
 
-  gtk_box_pack_start(GTK_BOX(sizer_top), toolbar, FALSE, FALSE, 0);
+  gtk_box_pack_start(GTK_BOX(box_top), toolbar, FALSE, FALSE, 0);
 
   // Toolbar item - New issue
 
@@ -126,31 +126,14 @@ int project_main_dialog_open(GtkWidget *parent) {
 
   g_signal_connect(G_OBJECT(toolbar_item_close), "clicked", G_CALLBACK(on_project_main_toolbar_close_clicked), NULL);
 
-
   // List
 
   project_main_treeview = gtk_tree_view_new();
   gtk_tree_view_set_headers_visible(GTK_TREE_VIEW(project_main_treeview), FALSE);
 
-  GtkWidget *vbox = gtk_vbox_new(FALSE, 0);
-
-  gtk_box_pack_start(GTK_BOX(vbox), project_main_treeview, TRUE, TRUE, 0);
-
-  gtk_container_add(GTK_CONTAINER(sizer_top), vbox);
+  gtk_box_pack_start(GTK_BOX(box_top), project_main_treeview, TRUE, TRUE, 0);
 
   project_main_dialog_init_list(project_main_treeview);
-
-  // Position window
-
-  /*
-  gtk_window_get_position(GTK_WINDOW(project_main_window), &x, &y);
-  printf("current position is:\nx: %i\ny:%i\n", x, y);
-
-  gtk_window_set_position(GTK_WINDOW(project_main_window), GTK_WIN_POS_CENTER_ALWAYS);
-
-  gtk_window_get_position(GTK_WINDOW(project_main_window), &x, &y);
-  printf("current position is:\nx: %i\ny:%i\n", x, y);
-  */
 
   //
 
@@ -186,7 +169,6 @@ void project_main_dialog_init_list(GtkWidget *treeview)
   // Tree view configuration
 
   gtk_tree_view_set_headers_visible(GTK_TREE_VIEW(treeview), TRUE);
-  gtk_tree_view_set_rules_hint(GTK_TREE_VIEW(treeview), TRUE);
   gtk_tree_view_set_enable_tree_lines(GTK_TREE_VIEW(treeview), FALSE);
   gtk_tree_view_set_grid_lines(GTK_TREE_VIEW(treeview), GTK_TREE_VIEW_GRID_LINES_BOTH);
 

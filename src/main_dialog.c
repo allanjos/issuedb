@@ -1,8 +1,8 @@
-/* -*- Mode: C; indent-tabs-mode: t; c-basic-offset: 4; tab-width: 4 -*-  */
-/*
- * main_dialog.c
- * Copyright (C) 2013 Allann Jones <allanjos[at]gmail.com>
- * 
+/**
+ * @file main_dialog.c
+ * @author Allann Jones <allanjos[at]gmail.com>
+ * @since 2013
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions
  * are met:
@@ -14,7 +14,7 @@
  * 3. Neither the name ``Allann Jones'' nor the name of any other
  *    contributor may be used to endorse or promote products derived
  *    from this software without specific prior written permission.
- * 
+ *
  * issuedb IS PROVIDED BY Allann Jones ``AS IS'' AND ANY EXPRESS
  * OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
  * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
@@ -88,6 +88,8 @@ int main(int argc, char *argv[])
 
   main_dialog_window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
 
+  gtk_window_set_role(GTK_WINDOW(main_dialog_window), "issuedb");
+
   gtk_window_set_default_size(GTK_WINDOW(main_dialog_window), 950, 600);
 
   gtk_window_set_title(GTK_WINDOW(main_dialog_window), APP_NAME);
@@ -98,18 +100,12 @@ int main(int argc, char *argv[])
 
   gtk_container_set_border_width(GTK_CONTAINER(main_dialog_window), 0);
 
-  /*
-  gtk_window_set_type_hint(GTK_WINDOW(main_dialog_window), GDK_WINDOW_TYPE_HINT_NORMAL);
-
-  */
-
-  gtk_window_set_gravity(GTK_WINDOW(main_dialog_window), GDK_GRAVITY_STATIC);
-
-  gtk_window_set_position(GTK_WINDOW(main_dialog_window), GTK_WIN_POS_CENTER);
+  //gtk_window_set_type_hint(GTK_WINDOW(main_dialog_window), GDK_WINDOW_TYPE_HINT_NORMAL);
+  gtk_window_set_position(GTK_WINDOW(main_dialog_window), GTK_WIN_POS_CENTER_ALWAYS);
 
   // Main sizer
 
-  box_top = gtk_vbox_new(FALSE, 0);
+  box_top = gtk_box_new(GTK_ORIENTATION_VERTICAL, 0);
 
   gtk_container_add(GTK_CONTAINER(main_dialog_window), box_top);
 
@@ -249,18 +245,12 @@ int main(int argc, char *argv[])
 
   gtk_toolbar_insert(GTK_TOOLBAR(toolbar), tool_item, 6);
 
-
   // List
 
   treeview = gtk_tree_view_new();
   gtk_tree_view_set_headers_visible(GTK_TREE_VIEW(treeview), FALSE);
 
-  GtkWidget *vbox = gtk_vbox_new(FALSE, 0);
-
-  gtk_box_pack_start(GTK_BOX(vbox), treeview, TRUE, TRUE, 0);
-
-
-  gtk_container_add(GTK_CONTAINER(box_top), vbox);
+  gtk_box_pack_start(GTK_BOX(box_top), treeview, TRUE, TRUE, 0);
 
   // Status bar
 
@@ -283,19 +273,6 @@ int main(int argc, char *argv[])
   // Show widgets
 
   gtk_widget_show_all(main_dialog_window);
-
-  // Position window
-
-  //gtk_window_get_position(GTK_WINDOW(main_dialog_window), &x, &y);
-  //printf("current position is:\nx: %i\ny:%i\n", x, y);
-
-  gtk_window_set_gravity(GTK_WINDOW(main_dialog_window), GDK_GRAVITY_CENTER);
-  gtk_window_move(GTK_WINDOW(main_dialog_window), 0, 0);
-  //gtk_window_set_position(GTK_WINDOW(main_dialog_window), GTK_WIN_POS_CENTER);
-  //gtk_window_move(GTK_WINDOW(main_dialog_window), 420, 180);
-
-  //gtk_window_get_position(GTK_WINDOW(main_dialog_window), &x, &y);
-  //printf("current position is:\nx: %i\ny:%i\n", x, y);
 
 
   gtk_main();
@@ -361,7 +338,6 @@ void issue_new_dialog_init_list(GtkWidget *treeview)
   // Tree view configuration
 
   gtk_tree_view_set_headers_visible(GTK_TREE_VIEW(treeview), TRUE);
-  gtk_tree_view_set_rules_hint(GTK_TREE_VIEW(treeview), TRUE);
   gtk_tree_view_set_enable_tree_lines(GTK_TREE_VIEW(treeview), FALSE);
   gtk_tree_view_set_grid_lines(GTK_TREE_VIEW(treeview), GTK_TREE_VIEW_GRID_LINES_BOTH);
 
@@ -685,7 +661,7 @@ int main_dialog_issue_list_query_callback(void *NotUsed, int argc, char **argv, 
   g_print("main_dialog_issue_list_query_callback()\n");
 
   ++main_dialog_issues_count;
-  
+
   if (argv[2]) {
     switch (atoi(argv[2])) {
       case 1:
@@ -849,7 +825,7 @@ void gtk_main_about_dialog_callback(GtkWidget *widget, gpointer data)
 
   snprintf(app_version, 10, "%d.%d.%d", APP_MAJOR_VERSION, APP_MINOR_VERSION, APP_REVISION_VERSION);
 
-  gtk_about_dialog_set_version(GTK_ABOUT_DIALOG(dialog), app_version); 
+  gtk_about_dialog_set_version(GTK_ABOUT_DIALOG(dialog), app_version);
 
   gtk_about_dialog_set_copyright(GTK_ABOUT_DIALOG(dialog), "(c) Allann Jones");
 

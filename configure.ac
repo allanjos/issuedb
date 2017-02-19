@@ -3,7 +3,7 @@
 
 AC_PREREQ([2.64])
 
-AC_INIT([Fixer],
+AC_INIT([IssueDB],
         [0.1.0],
         [allanjos@gmail.com],
         [issuedb],
@@ -26,16 +26,14 @@ AC_PROG_CC
 
 AC_CHECK_LIB(dl, dlopen)
 
-AC_ARG_WITH([gtk3],
-            [AS_HELP_STRING([--with-gtk3], [Build with the GTK+-3.0 interface])],
-            [AC_DEFINE([with_gtk2], [], [Build with the GTK+-2.0 interface])])
+AC_ARG_WITH([gtk2],
+            [AS_HELP_STRING([--with-gtk2], [Build with the GTK+-3.0 interface])],
+            [AC_DEFINE([with_gtk3], [], [Build with the GTK+-3.0 interface])])
 
-AS_IF([test "x$with_gtk3" = "xyes"],
-  [PKG_CHECK_MODULES([GTK], gtk+-3.0 >= 3.0.0)],
-  [PKG_CHECK_MODULES([GTK], gtk+-2.0 >= 2.0.0)])
+AS_IF([test "x$with_gtk2" = "xyes"],
+  [PKG_CHECK_MODULES([GTK], gtk+-2.0 >= 2.0.0)],
+  [PKG_CHECK_MODULES([GTK], gtk+-3.0 >= 3.0.0)])
 
-# AC_CHECK_HEADERS([unistd.h])
-# AC_CHECK_HEADERS([xxxxx.h])
 AC_CHECK_HEADERS([gtk/gtk.h])
 
 AC_CONFIG_HEADERS([include/config.h])
